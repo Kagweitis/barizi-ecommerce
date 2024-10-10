@@ -77,7 +77,7 @@ public class ProductService {
                         .category(categories).build();
                 productRepository.save(newProduct);
                 res.setMessage("Product added successfully");
-                res.setStatusCode(500);
+                res.setStatusCode(200);
                 res.setProduct(newProduct);
             });
         } catch (Exception e){

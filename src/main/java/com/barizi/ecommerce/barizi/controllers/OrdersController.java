@@ -2,9 +2,11 @@ package com.barizi.ecommerce.barizi.controllers;
 
 
 import com.barizi.ecommerce.barizi.DTOs.Request.OrderRequests.OrderRequest;
+import com.barizi.ecommerce.barizi.DTOs.Request.OrderRequests.OrderUpdateRequest;
 import com.barizi.ecommerce.barizi.DTOs.Response.OrderResponse.GetOrdersResponse;
 import com.barizi.ecommerce.barizi.DTOs.Response.ProductResponse.GetProductsResponse;
 import com.barizi.ecommerce.barizi.DTOs.Response.OrderResponse.OrderResponse;
+import com.barizi.ecommerce.barizi.DTOs.Response.SimpleResponse;
 import com.barizi.ecommerce.barizi.Services.OrderService;
 import com.barizi.ecommerce.barizi.Services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +37,16 @@ public class OrdersController {
     @GetMapping("/user/orders/{id}")
     public ResponseEntity<GetOrdersResponse> getUserOrders(@PathVariable long id){
         return orderService.getUserOrders(id);
+    }
+
+    @PatchMapping("/delete/order/{id}")
+    public ResponseEntity<SimpleResponse> deleteOrder(@PathVariable long id){
+        return orderService.deleteOrder(id);
+    }
+
+    @PatchMapping("/update/order")
+    public ResponseEntity<OrderResponse> deleteOrder(@RequestBody OrderUpdateRequest orderUpdateRequest){
+        return orderService.updateOrder(orderUpdateRequest);
     }
 
 }

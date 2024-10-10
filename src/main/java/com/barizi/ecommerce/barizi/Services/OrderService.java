@@ -3,11 +3,13 @@ package com.barizi.ecommerce.barizi.Services;
 
 import com.barizi.ecommerce.barizi.DTOs.Request.OrderRequests.OrderItemRequest;
 import com.barizi.ecommerce.barizi.DTOs.Request.OrderRequests.OrderRequest;
+import com.barizi.ecommerce.barizi.DTOs.Request.OrderRequests.OrderUpdateRequest;
 import com.barizi.ecommerce.barizi.DTOs.Response.OrderResponse.GetOrdersResponse;
 import com.barizi.ecommerce.barizi.DTOs.Response.OrderResponse.OrderDetails;
 import com.barizi.ecommerce.barizi.DTOs.Response.OrderResponse.OrderInfo;
 import com.barizi.ecommerce.barizi.DTOs.Response.OrderResponse.OrderResponse;
 import com.barizi.ecommerce.barizi.DTOs.Response.ProductResponse.GetProductsResponse;
+import com.barizi.ecommerce.barizi.DTOs.Response.SimpleResponse;
 import com.barizi.ecommerce.barizi.Entities.Enums.OrderStatus;
 import com.barizi.ecommerce.barizi.Entities.Enums.PaymentStatus;
 import com.barizi.ecommerce.barizi.Entities.Order;
@@ -114,6 +116,8 @@ public class OrderService {
                 OrderDetails orderDetails = OrderDetails.builder()
                         .totalCost(totalCost)
                         .orderInfos(orderInfos)
+                        .paymentStatus(newOrder.getPaymentStatus().toString())
+                        .orderStatus(newOrder.getOrderStatus().toString())
                         .build();
                 res.setMessage("Order placed successfully");
                 res.setStatusCode(200);
@@ -158,6 +162,8 @@ public class OrderService {
 
                 // Set the orderInfos and other details for this order
                 orderDetail.setOrderInfos(orderInfos);
+                orderDetail.setOrderStatus(order.getOrderStatus().toString());
+                orderDetail.setPaymentStatus(order.getPaymentStatus().toString());
                 orderDetail.setTotalCost(order.getTotalCost());
                 orderDetails.add(orderDetail);
             }
@@ -167,6 +173,76 @@ public class OrderService {
         } catch (Exception e){
             log.error("error creating order "+e);
             res.setMessage("Couldn't get your orders. Please try again later");
+            res.setStatusCode(500);
+            return ResponseEntity.status(res.getStatusCode()).body(res);
+        }
+        return ResponseEntity.status(res.getStatusCode()).body(res);
+    }
+
+    public ResponseEntity<SimpleResponse> deleteOrder(long id){
+        SimpleResponse res = new SimpleResponse();
+
+        try {
+            Optional<Order> existingOrder = orderRepository.findByIdAndDeleted(id);
+            existingOrder.ifPresentOrElse(order -> {
+                order.setDeleted(true);
+                orderRepository.save(order);
+                res.setMessage("Order deleted successfully");
+                res.setStatusCode(200);
+            }, ()-> {
+                res.setMessage("Order not found");
+                res.setStatusCode(404);
+            });
+        } catch (Exception e){
+            log.error("error deleting order "+e);
+            res.setMessage("Couldn't delete your order. Please try again later");
+            res.setStatusCode(500);
+            return ResponseEntity.status(res.getStatusCode()).body(res);
+        }
+        return ResponseEntity.status(res.getStatusCode()).body(res);
+    }
+
+    public ResponseEntity<OrderResponse> updateOrder(OrderUpdateRequest orderUpdateRequest) {
+
+        OrderResponse res = new OrderResponse();
+
+        try {
+            Optional<Order> existingOrder = orderRepository.findByIdAndDeleted(orderUpdateRequest.getId());
+            existingOrder.ifPresentOrElse(order -> {
+                if (orderUpdateRequest.getOrderStatus() != null){
+                    order.setOrderStatus(OrderStatus.valueOf(orderUpdateRequest.getOrderStatus().toUpperCase()));
+                }
+                if (orderUpdateRequest.getPaymentStatus() != null) {
+                    order.setPaymentStatus(PaymentStatus.valueOf(orderUpdateRequest.getPaymentStatus().toUpperCase()));
+                }
+                orderRepository.save(order);
+                OrderDetails orderDetail = new OrderDetails();
+
+                List<OrderInfo> orderInfos = new ArrayList<>();
+
+                for (OrderItem orderItem : order.getOrderItems()) {
+                    OrderInfo orderInfo = OrderInfo.builder()
+                            .product(orderItem.getProduct())
+                            .quantity(orderItem.getQuantity())
+                            .build();
+
+                    orderInfos.add(orderInfo);  // Add info to this order's list
+                }
+                orderDetail.setOrderStatus(orderUpdateRequest.getOrderStatus());
+                orderDetail.setPaymentStatus(orderUpdateRequest.getPaymentStatus());
+                orderDetail.setTotalCost(order.getTotalCost());
+                orderDetail.setOrderInfos(orderInfos);
+
+                res.setMessage("Order updated successfully");
+                res.setStatusCode(200);
+                res.setOrder(orderDetail);
+            }, ()-> {
+                res.setMessage("Order not found");
+                res.setStatusCode(404);
+            });
+        } catch (Exception e){
+            log.error("error updating order "+e);
+            res.setMessage("Couldn't update your order. Please try again later");
             res.setStatusCode(500);
             return ResponseEntity.status(res.getStatusCode()).body(res);
         }
