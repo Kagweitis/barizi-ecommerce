@@ -49,4 +49,11 @@ public class OrdersController {
         return orderService.updateOrder(orderUpdateRequest);
     }
 
+    @GetMapping("/search/products")
+    public ResponseEntity<GetProductsResponse> searchProducts(@RequestParam int page,
+                                                              @RequestParam int size,
+                                                              @RequestParam String searchPhrase){
+        return orderService.searchPhrase(page, size, searchPhrase);
+    }
+
 }
