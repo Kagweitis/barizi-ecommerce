@@ -1,7 +1,9 @@
 package com.barizi.ecommerce.barizi.Services;
 
 import com.barizi.ecommerce.barizi.DTOs.Request.ProductRequest;
+import com.barizi.ecommerce.barizi.DTOs.Response.GetProductsResponse;
 import com.barizi.ecommerce.barizi.DTOs.Response.ProductResponse;
+import com.barizi.ecommerce.barizi.DTOs.Response.SimpleResponse;
 import com.barizi.ecommerce.barizi.Entities.Category;
 import com.barizi.ecommerce.barizi.Entities.Product;
 import com.barizi.ecommerce.barizi.Repositories.CategoryRepository;
@@ -12,7 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.security.PublicKey;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -93,7 +97,7 @@ public class ProductService {
         HashSet<Category> categories = new HashSet<>();
 
         try {
-            Optional<Product> existingProductOptional = productRepository.findById(productRequest.getId());
+            Optional<Product> existingProductOptional = productRepository.findByIdDeleted(productRequest.getId());
             if (productRequest.getCategoryId() > 0){
                 Optional<Category> category = categoryRepository.findById(productRequest.getCategoryId());
                 category.ifPresent(categories::add);
@@ -119,5 +123,50 @@ public class ProductService {
             return ResponseEntity.status(res.getStatusCode()).body(res);
         }
         return ResponseEntity.status(res.getStatusCode()).body(res);
+    }
+
+    public ResponseEntity<SimpleResponse> deleteProduct(long id){
+        SimpleResponse res = new SimpleResponse();
+
+        try {
+            Optional<Product> existingProduct = productRepository.findByIdDeleted(id);
+            existingProduct.ifPresentOrElse(product -> {
+                product.setDeleted(true);
+                productRepository.save(product);
+                res.setMessage("Product deleted successfully");
+                res.setStatusCode(200);
+            }, ()-> {
+                res.setMessage("Product not found");
+                res.setStatusCode(404);
+            });
+        } catch (Exception e){
+            log.error("error deleting product "+e);
+            res.setMessage("Couldn't deleted the product. Please try again later");
+            res.setStatusCode(500);
+            return ResponseEntity.status(res.getStatusCode()).body(res);
+        }
+        return ResponseEntity.status(res.getStatusCode()).body(res);
+    }
+
+    public ResponseEntity<GetProductsResponse> getProducts(){
+        GetProductsResponse res = new GetProductsResponse();
+
+        try {
+            List<Product> products = productRepository.findAllByDeleted();
+            if (products.isEmpty()){
+                res.setMessage("No products available. Please try again later");
+                res.setStatusCode(204);
+                return ResponseEntity.status(res.getStatusCode()).body(res);
+            }
+            res.setProducts(products);
+            res.setMessage("Products found");
+            res.setStatusCode(200);
+            return ResponseEntity.status(res.getStatusCode()).body(res);
+        } catch (Exception e){
+            log.error("error deleting product "+e);
+            res.setMessage("Couldn't get the products. Please try again later");
+            res.setStatusCode(500);
+            return ResponseEntity.status(res.getStatusCode()).body(res);
+        }
     }
 }
