@@ -1,4 +1,4 @@
-package com.barizi.ecommerce.barizi.DTOs.Request;
+package com.barizi.ecommerce.barizi.DTOs.Request.OrderRequests;
 
 import lombok.Data;
 

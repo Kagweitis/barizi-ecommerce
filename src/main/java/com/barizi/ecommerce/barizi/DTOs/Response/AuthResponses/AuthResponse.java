@@ -1,6 +1,5 @@
-package com.barizi.ecommerce.barizi.DTOs.Response;
+package com.barizi.ecommerce.barizi.DTOs.Response.AuthResponses;
 
-import com.barizi.ecommerce.barizi.Entities.UserEntity;
 import lombok.*;
 
 @Data

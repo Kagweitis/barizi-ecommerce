@@ -1,9 +1,8 @@
 package com.barizi.ecommerce.barizi.controllers;
 
-import com.barizi.ecommerce.barizi.DTOs.Request.LoginRequest;
-import com.barizi.ecommerce.barizi.DTOs.Request.UserCreationRequest;
-import com.barizi.ecommerce.barizi.DTOs.Response.AuthResponse;
-import com.barizi.ecommerce.barizi.Entities.UserEntity;
+import com.barizi.ecommerce.barizi.DTOs.Request.AuthRequests.LoginRequest;
+import com.barizi.ecommerce.barizi.DTOs.Request.AuthRequests.UserCreationRequest;
+import com.barizi.ecommerce.barizi.DTOs.Response.AuthResponses.AuthResponse;
 import com.barizi.ecommerce.barizi.Services.AuthService;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;

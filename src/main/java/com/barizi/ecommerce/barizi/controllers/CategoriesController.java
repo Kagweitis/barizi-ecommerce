@@ -1,7 +1,7 @@
 package com.barizi.ecommerce.barizi.controllers;
 
 
-import com.barizi.ecommerce.barizi.DTOs.Response.CategoryResponse;
+import com.barizi.ecommerce.barizi.DTOs.Response.ProductResponse.CategoryResponse;
 import com.barizi.ecommerce.barizi.Entities.Category;
 import com.barizi.ecommerce.barizi.Services.CategoryService;
 import org.springframework.web.bind.annotation.RequestBody;

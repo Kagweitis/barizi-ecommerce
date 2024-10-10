@@ -1,11 +1,13 @@
 package com.barizi.ecommerce.barizi.Services;
 
 
-import com.barizi.ecommerce.barizi.DTOs.Request.OrderItemRequest;
-import com.barizi.ecommerce.barizi.DTOs.Request.OrderRequest;
-import com.barizi.ecommerce.barizi.DTOs.Response.OrderDetails;
-import com.barizi.ecommerce.barizi.DTOs.Response.OrderInfo;
-import com.barizi.ecommerce.barizi.DTOs.Response.OrderResponse;
+import com.barizi.ecommerce.barizi.DTOs.Request.OrderRequests.OrderItemRequest;
+import com.barizi.ecommerce.barizi.DTOs.Request.OrderRequests.OrderRequest;
+import com.barizi.ecommerce.barizi.DTOs.Response.OrderResponse.GetOrdersResponse;
+import com.barizi.ecommerce.barizi.DTOs.Response.OrderResponse.OrderDetails;
+import com.barizi.ecommerce.barizi.DTOs.Response.OrderResponse.OrderInfo;
+import com.barizi.ecommerce.barizi.DTOs.Response.OrderResponse.OrderResponse;
+import com.barizi.ecommerce.barizi.DTOs.Response.ProductResponse.GetProductsResponse;
 import com.barizi.ecommerce.barizi.Entities.Enums.OrderStatus;
 import com.barizi.ecommerce.barizi.Entities.Enums.PaymentStatus;
 import com.barizi.ecommerce.barizi.Entities.Order;
@@ -128,4 +130,46 @@ public class OrderService {
         return ResponseEntity.status(res.getStatusCode()).body(res);
     }
 
+    public ResponseEntity<GetOrdersResponse> getUserOrders(long id) {
+        GetOrdersResponse res = new GetOrdersResponse();
+
+        try {
+            List<Order> orders = orderRepository.findAllByUserIdAndDeletedFalse(id);
+            if (orders.isEmpty()){
+                res.setMessage("You haven't placed any orders yet!");
+                res.setStatusCode(204);
+            }
+//            List<OrderInfo> orderInfos = new ArrayList<>();
+            List<OrderDetails> orderDetails = new ArrayList<>();
+            for (Order order : orders) {
+                OrderDetails orderDetail = new OrderDetails();
+
+                // Initialize a new orderInfos list for each order
+                List<OrderInfo> orderInfos = new ArrayList<>();
+
+                for (OrderItem orderItem : order.getOrderItems()) {
+                    OrderInfo orderInfo = OrderInfo.builder()
+                            .product(orderItem.getProduct())
+                            .quantity(orderItem.getQuantity())
+                            .build();
+
+                    orderInfos.add(orderInfo);  // Add info to this order's list
+                }
+
+                // Set the orderInfos and other details for this order
+                orderDetail.setOrderInfos(orderInfos);
+                orderDetail.setTotalCost(order.getTotalCost());
+                orderDetails.add(orderDetail);
+            }
+            res.setMessage("Orders found!");
+            res.setOrder(orderDetails);
+            res.setStatusCode(200);
+        } catch (Exception e){
+            log.error("error creating order "+e);
+            res.setMessage("Couldn't get your orders. Please try again later");
+            res.setStatusCode(500);
+            return ResponseEntity.status(res.getStatusCode()).body(res);
+        }
+        return ResponseEntity.status(res.getStatusCode()).body(res);
+    }
 }

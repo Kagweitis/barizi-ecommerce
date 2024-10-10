@@ -1,4 +1,4 @@
-package com.barizi.ecommerce.barizi.DTOs.Response;
+package com.barizi.ecommerce.barizi.DTOs.Response.ProductResponse;
 
 
 import com.barizi.ecommerce.barizi.Entities.Product;

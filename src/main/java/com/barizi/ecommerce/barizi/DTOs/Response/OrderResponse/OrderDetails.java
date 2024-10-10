@@ -1,7 +1,5 @@
-package com.barizi.ecommerce.barizi.DTOs.Response;
+package com.barizi.ecommerce.barizi.DTOs.Response.OrderResponse;
 
-import com.barizi.ecommerce.barizi.DTOs.Request.OrderItemRequest;
-import com.barizi.ecommerce.barizi.Entities.OrderItem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,8 +1,8 @@
 package com.barizi.ecommerce.barizi.controllers;
 
-import com.barizi.ecommerce.barizi.DTOs.Request.ProductRequest;
-import com.barizi.ecommerce.barizi.DTOs.Response.GetProductsResponse;
-import com.barizi.ecommerce.barizi.DTOs.Response.ProductResponse;
+import com.barizi.ecommerce.barizi.DTOs.Request.ProductRequests.ProductRequest;
+import com.barizi.ecommerce.barizi.DTOs.Response.ProductResponse.GetProductsResponse;
+import com.barizi.ecommerce.barizi.DTOs.Response.ProductResponse.ProductResponse;
 import com.barizi.ecommerce.barizi.DTOs.Response.SimpleResponse;
 import com.barizi.ecommerce.barizi.Services.ProductService;
 import lombok.RequiredArgsConstructor;

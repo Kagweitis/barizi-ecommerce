@@ -1,6 +1,5 @@
-package com.barizi.ecommerce.barizi.DTOs.Response;
+package com.barizi.ecommerce.barizi.DTOs.Response.OrderResponse;
 
-import com.barizi.ecommerce.barizi.Entities.Order;
 import lombok.Data;
 
 @Data

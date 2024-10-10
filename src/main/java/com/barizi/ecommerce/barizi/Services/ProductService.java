@@ -1,8 +1,8 @@
 package com.barizi.ecommerce.barizi.Services;
 
-import com.barizi.ecommerce.barizi.DTOs.Request.ProductRequest;
-import com.barizi.ecommerce.barizi.DTOs.Response.GetProductsResponse;
-import com.barizi.ecommerce.barizi.DTOs.Response.ProductResponse;
+import com.barizi.ecommerce.barizi.DTOs.Request.ProductRequests.ProductRequest;
+import com.barizi.ecommerce.barizi.DTOs.Response.ProductResponse.GetProductsResponse;
+import com.barizi.ecommerce.barizi.DTOs.Response.ProductResponse.ProductResponse;
 import com.barizi.ecommerce.barizi.DTOs.Response.SimpleResponse;
 import com.barizi.ecommerce.barizi.Entities.Category;
 import com.barizi.ecommerce.barizi.Entities.Product;
@@ -12,9 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
-import java.security.PublicKey;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -169,4 +167,5 @@ public class ProductService {
             return ResponseEntity.status(res.getStatusCode()).body(res);
         }
     }
+
 }

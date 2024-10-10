@@ -1,10 +1,10 @@
 package com.barizi.ecommerce.barizi.Services;
 
 import com.barizi.ecommerce.barizi.Config.JwtService;
-import com.barizi.ecommerce.barizi.DTOs.Request.LoginRequest;
-import com.barizi.ecommerce.barizi.DTOs.Request.UserCreationRequest;
-import com.barizi.ecommerce.barizi.DTOs.Response.AuthResponse;
-import com.barizi.ecommerce.barizi.DTOs.Response.User;
+import com.barizi.ecommerce.barizi.DTOs.Request.AuthRequests.LoginRequest;
+import com.barizi.ecommerce.barizi.DTOs.Request.AuthRequests.UserCreationRequest;
+import com.barizi.ecommerce.barizi.DTOs.Response.AuthResponses.AuthResponse;
+import com.barizi.ecommerce.barizi.DTOs.Response.AuthResponses.User;
 import com.barizi.ecommerce.barizi.Entities.Enums.Role;
 import com.barizi.ecommerce.barizi.Entities.UserEntity;
 import com.barizi.ecommerce.barizi.Repositories.UserRepository;

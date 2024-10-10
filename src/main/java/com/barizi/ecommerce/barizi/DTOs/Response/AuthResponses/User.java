@@ -1,4 +1,4 @@
-package com.barizi.ecommerce.barizi.DTOs.Response;
+package com.barizi.ecommerce.barizi.DTOs.Response.AuthResponses;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.barizi.ecommerce.barizi.DTOs.Request;
+package com.barizi.ecommerce.barizi.DTOs.Request.ProductRequests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
