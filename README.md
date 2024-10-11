@@ -145,6 +145,7 @@ To test the API endpoints using Postman, follow these steps:
   - Add the following environment variables:
     - `token`: This will hold the JWT token for authentication.
     - `baseUrl`: Set the value to `http://localhost:8081`.
+  - Select project environment on top right corner on postman. 
 
 2. **Testing the API:**
   - Once your application is up and running, you can authenticate by sending a POST request to the `register` or `login` endpoints.
