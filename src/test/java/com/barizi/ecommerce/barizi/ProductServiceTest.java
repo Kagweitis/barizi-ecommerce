@@ -6,7 +6,6 @@ import com.barizi.ecommerce.barizi.DTOs.Response.ProductResponse.ProductResponse
 import com.barizi.ecommerce.barizi.Entities.Category;
 import com.barizi.ecommerce.barizi.Entities.Product;
 import com.barizi.ecommerce.barizi.Repositories.CategoryRepository;
-import com.barizi.ecommerce.barizi.Repositories.OrderRepository;
 import com.barizi.ecommerce.barizi.Repositories.ProductRepository;
 import com.barizi.ecommerce.barizi.Repositories.UserRepository;
 import com.barizi.ecommerce.barizi.Services.OrderService;
@@ -165,7 +164,6 @@ public class ProductServiceTest {
             productService.newProduct(productRequest);
         });
     }
-
 
 
 }

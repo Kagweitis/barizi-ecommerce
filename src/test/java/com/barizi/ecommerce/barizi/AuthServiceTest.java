@@ -1,7 +1,6 @@
 package com.barizi.ecommerce.barizi;
 
 import com.barizi.ecommerce.barizi.Config.JwtService;
-import com.barizi.ecommerce.barizi.DTOs.Request.AuthRequests.LoginRequest;
 import com.barizi.ecommerce.barizi.DTOs.Request.AuthRequests.UserCreationRequest;
 import com.barizi.ecommerce.barizi.DTOs.Response.AuthResponses.AuthResponse;
 import com.barizi.ecommerce.barizi.Entities.UserEntity;
@@ -35,7 +34,6 @@ public class AuthServiceTest {
 
     @Mock
     private PasswordEncoder passwordEncoder;
-
 
 
     private UserCreationRequest userCreationRequest;
