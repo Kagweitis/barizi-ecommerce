@@ -105,7 +105,7 @@ mvn test
 
 To run the application, you can use an IDE of choice and run the main class or run
 ```bash
-mvn run -DskipTests
+mvn clean install -DskipTests
 ```
 to create a jar file. Open cmd/terminal and navigate to the `/target` folder and run 
 ```bash
