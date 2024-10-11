@@ -68,7 +68,7 @@ The application defines two user roles: **Customer** and **Admin**, each with sp
   - **Search for Products:** Customers can search for products by name or category.
   - **Get Products:** Customers can view the list of available products.
   - **Manage Orders:**
-    - **Place Orders:** Customers can create new orders.
+    - **Place Orders:** Customers can create new orders. Including **Payment Status** `(PAID, UNPAID, FAILED)` and **Order Status** `(DELIVERED, SHIPPED, PENDING)`
     - **Update Orders:** Customers can modify their existing orders.
     - **Delete Orders:** Customers can delete their orders.
     - **Get Their Orders:** Customers can view the details of their past orders.
@@ -103,7 +103,7 @@ mvn test
 
 ### 7. Running The Application
 
-To run the application, you can use an IDE of choice and run the main class or run
+To run the application, you can use an IDE of choice and run the main class or open terminal/cmd and run
 ```bash
 mvn clean install -DskipTests
 ```
@@ -151,9 +151,9 @@ To test the API endpoints using Postman, follow these steps:
   - Save the JWT token returned from the response and set it as the value for the `token` environment variable in Postman.
   - Use the `{{baseUrl}}` variable in your requests to access the API endpoints.
 
-### Accessing the Application
+### Swagger Docs
 
-After starting the application, you can access the Swagger documentation at the following URL:
+After starting the application, you can access the **Swagger documentation** at the following URL:
 
 [http://localhost:8081/swagger-ui/index.html#/](http://localhost:8081/swagger-ui/index.html#/)
 
