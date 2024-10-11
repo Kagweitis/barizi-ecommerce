@@ -122,15 +122,15 @@ This project can be deployed using a Jenkins pipeline that builds the applicatio
 
 #### Jenkins Pipeline Configuration
 1. **Create a New Pipeline Job in Jenkins:**
-  - Open Jenkins and click on "New Item".
-  - Select "Pipeline" and give it a name (e.g., `barizi-ecommerce-deployment`).
-  - Click "OK".
+   - Open Jenkins and click on "New Item".
+   - Select "Pipeline" and give it a name (e.g., `barizi-ecommerce-deployment`).
+   - Click "OK".
 2. **Configure the Pipeline:**
-  - In the pipeline configuration, scroll down to the "Pipeline" section.
-  - Choose "Get from scm" to use the Jenkinsfile at the root of the project in github.
-  - When the job is run Jenkins will build the application (jar file) and create an image. 
-  - The pipeline will, further, push the image to Dockerhub using the credentials set and subsequently build a docker container using the image built thereby deploying the application.
-  - Access the application via http://{{baseUrl}}:8081
+   - In the pipeline configuration, scroll down to the "Pipeline" section.
+   - Choose "Get from scm" to use the Jenkinsfile at the root of the project in github.
+   - When the job is run Jenkins will build the application (jar file) and create an image. 
+   - The pipeline will, further, push the image to Dockerhub using the credentials set and subsequently build a docker container using the image built thereby deploying the application.
+   - Access the application via http://{{baseUrl}}:8081
 
 ### 9. Documentation
 
@@ -139,18 +139,18 @@ This project can be deployed using a Jenkins pipeline that builds the applicatio
 To test the API endpoints using Postman, follow these steps:
 
 1. **Create Environment Variables:**
-  - Open Postman and click on the "Environments" tab.
-  - Click on "Add" to create a new environment.
-  - Name your environment (e.g., `Barizi E-commerce`).
-  - Add the following environment variables:
-    - `token`: This will hold the JWT token for authentication.
-    - `baseUrl`: Set the value to `http://localhost:8081`.
-  - Select project environment on top right corner on postman. 
+   - Open Postman and click on the "Environments" tab.
+   - Click on "Add" to create a new environment.
+   - Name your environment (e.g., `Barizi E-commerce`).
+   - Add the following environment variables:
+     - `token`: This will hold the JWT token for authentication.
+     - `baseUrl`: Set the value to `http://localhost:8081`.
+   - Select project environment on top right corner on postman. 
 
 2. **Testing the API:**
-  - Once your application is up and running, you can authenticate by sending a POST request to the `register` or `login` endpoints.
-  - Save the JWT token returned from the response and set it as the value for the `token` environment variable in Postman.
-  - Use the `{{baseUrl}}` variable in your requests to access the API endpoints.
+   - Once your application is up and running, you can authenticate by sending a POST request to the `register` or `login` endpoints.
+   - Save the JWT token returned from the response and set it as the value for the `token` environment variable in Postman.
+   - Use the `{{baseUrl}}` variable in your requests to access the API endpoints.
 
 ### Swagger Docs
 
