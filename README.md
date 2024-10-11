@@ -85,7 +85,7 @@ The application defines two user roles: **Customer** and **Admin**, each with sp
   These role-based permissions ensure a secure and structured approach to managing access to different functionalities within the application.
 
 ### 5. Categories
-For more seamless testing, I have created a service to autocreate and save categories to facilitate easy creation of products. Please access the categories in the database after application start and use any of the cataegory IDs available to categorize new products when sending the request to add or update products.
+For a more seamless experience, I have created a service to autocreate and save categories to facilitate easy creation of products. Please access the categories in the database after application start and use any of the cataegory IDs available to categorize new products when sending the request to add or update products.
 ### 6. Testing
 
 To ensure the functionality of the application, integration tests have been implemented for key components, including:
