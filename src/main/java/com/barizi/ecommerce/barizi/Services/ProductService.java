@@ -10,6 +10,9 @@ import com.barizi.ecommerce.barizi.Repositories.CategoryRepository;
 import com.barizi.ecommerce.barizi.Repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -163,6 +166,31 @@ public class ProductService {
         } catch (Exception e){
             log.error("error deleting product "+e);
             res.setMessage("Couldn't get the products. Please try again later");
+            res.setStatusCode(500);
+            return ResponseEntity.status(res.getStatusCode()).body(res);
+        }
+    }
+
+    public ResponseEntity<GetProductsResponse> searchPhrase(int page, int size, String searchPhrase) {
+
+        GetProductsResponse res = new GetProductsResponse();
+        Pageable pageable = PageRequest.of(page, size);
+
+        try {
+            Page<Product> products = productRepository.searchForTerm(pageable, searchPhrase);
+
+            if (products.isEmpty()){
+                res.setMessage("The keyword doesn't match anything we have");
+                res.setStatusCode(200);
+                return ResponseEntity.status(res.getStatusCode()).body(res);
+            }
+            res.setMessage("Results found");
+            res.setStatusCode(200);
+            res.setProducts(products.stream().toList());
+            return ResponseEntity.status(res.getStatusCode()).body(res);
+        } catch (Exception e){
+            log.error("error searching keyword "+e);
+            res.setMessage("An error occured. Please try again later");
             res.setStatusCode(500);
             return ResponseEntity.status(res.getStatusCode()).body(res);
         }

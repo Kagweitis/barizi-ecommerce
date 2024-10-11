@@ -39,4 +39,11 @@ public class ProductsController {
         return productService.getProducts();
     }
 
+    @GetMapping("/search/products")
+    public ResponseEntity<GetProductsResponse> searchProducts(@RequestParam int page,
+                                                              @RequestParam int size,
+                                                              @RequestParam String searchPhrase){
+        return productService.searchPhrase(page, size, searchPhrase);
+    }
+
 }

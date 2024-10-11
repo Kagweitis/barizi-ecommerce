@@ -252,28 +252,5 @@ public class OrderService {
         return ResponseEntity.status(res.getStatusCode()).body(res);
     }
 
-    public ResponseEntity<GetProductsResponse> searchPhrase(int page, int size, String searchPhrase) {
 
-        GetProductsResponse res = new GetProductsResponse();
-        Pageable pageable = PageRequest.of(page, size);
-
-        try {
-            Page<Product> products = productRepository.searchForTerm(pageable, searchPhrase);
-
-            if (products.isEmpty()){
-                res.setMessage("The keyword doesn't match anything we have");
-                res.setStatusCode(204);
-            }
-            res.setMessage("Results found");
-            res.setStatusCode(200);
-            res.setProducts(products.stream().toList());
-        } catch (Exception e){
-            log.error("error searching keyword "+e);
-            res.setMessage("An error occured. Please try again later");
-            res.setStatusCode(500);
-            return ResponseEntity.status(res.getStatusCode()).body(res);
-        }
-        return ResponseEntity.status(res.getStatusCode()).body(res);
-
-    }
 }

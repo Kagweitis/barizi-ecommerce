@@ -33,6 +33,7 @@ public class SecurityConfiguration {
                         )
                         .permitAll()
                         .requestMatchers("api/v1/categories/new/category").hasAuthority("ADMIN")
+                        .requestMatchers("api/v1/products/search/products").hasAuthority("CUSTOMER")
                         .requestMatchers("api/v1/products/**").hasAuthority("ADMIN")
                         .requestMatchers("api/v1/orders/**").hasAnyAuthority("CUSTOMER", "ADMIN")
 //                        .requestMatchers("/**").permitAll()

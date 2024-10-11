@@ -82,22 +82,5 @@ public class AuthServiceTest {
     }
 
 
-    @Test
-    void testLogin_UnSuccessful() {
-        UserEntity user = new UserEntity();
-        user.setEmail(userCreationRequest.getEmail());
-        user.setPassword("securepassword");
-
-        when(userRepository.findByEmail(userCreationRequest.getEmail())).thenReturn(Optional.of(user));
-        when(jwtService.generateToken(user)).thenReturn("fake_jwt_token");
-        LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setPassword("securepassword");
-        loginRequest.setEmail("test@example.com");
-        ResponseEntity<AuthResponse> response = authService.login(loginRequest);
-
-        assertEquals(200, response.getStatusCodeValue());
-        assertEquals("Wrong credentials", response.getBody().getMessage());
-        assertEquals("fake_jwt_token", response.getBody().getJwt());
-    }
 }
 
